@@ -1,0 +1,16 @@
+<!doctype html>
+<title>Upload new Image</title>
+<h1>Upload new Image</h1>
+<form method="post" enctype="multipart/form-data">
+  <label for="file-upload" class="custom-file-upload">
+    UPLOAD
+  </label>
+  <input id="file-upload" type="file" name="file" style="display: none;" onchange="submitForm()"/>
+  <input type="submit" value="Upload" id="submit-button" style="display: none;">
+</form>
+<script>
+  function submitForm() {
+    document.forms[0].submit();
+  }
+</script>
+
