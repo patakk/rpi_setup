@@ -1,16 +1,61 @@
-<!doctype html>
-<title>Upload new Image</title>
-<h1>Upload new Image</h1>
-<form method="post" enctype="multipart/form-data">
-  <label for="file-upload" class="custom-file-upload">
-    UPLOAD
-  </label>
-  <input id="file-upload" type="file" name="file" style="display: none;" onchange="submitForm()"/>
-  <input type="submit" value="Upload" id="submit-button" style="display: none;">
-</form>
-<script>
-  function submitForm() {
-    document.forms[0].submit();
-  }
-</script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Upload Image</title>
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #000;
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+            font-weight: bold;
+	    color: white;
+        }
+        #uploadForm {
+            text-align: center;
+            width: 100%;
+            max-width: 800px; /* Adjust width as per your preference */
+        }
+        h1 {
+            font-size: 4em; /* Larger font size */
+            margin-bottom: 2em;
+        }
+        .upload-btn {
+            background-color: transparent;
+            color: white;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 3.5em;
+            text-transform: uppercase; /* Capitalize text */
+        }
+        /* Hide the file input visually but remain accessible */
+        #file {
+            width: 0.1px;
+            height: 0.1px;
+            opacity: 0;
+            overflow: hidden;
+            position: absolute;
+            z-index: -1;
+        }
+        /* Style focus state of upload button for accessibility */
+        #file + .upload-btn {
+            outline: 5px dotted #fff;
+            outline-offset: 4px;
+        }
+    </style>
+</head>
+<body>
+    <form id="uploadForm" action="/upload" method="post" enctype="multipart/form-data">
+        <h1>Press the button to upload image, or paste from clipboard</h1>
+        <input type="file" name="file" id="file" style="display: none;" onchange="document.getElementById('uploadForm').submit();">
+        <label for="file" class="upload-btn">Upload</label>
+    </form>
+    <script src="static/script.js"></script>
+</body>
 
+</html>

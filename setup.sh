@@ -5,7 +5,7 @@ sudo apt-get update -y > /dev/null 2>&1
 sudo apt-get upgrade -y > /dev/null 2>&1
 
 echo "Installing curl, git, fish, tmux, pip, and vim..."
-sudo apt-get install -y curl git fish vim, tmux, python3-pip > /dev/null 2>&1
+sudo apt-get install -y curl git fish vim tmux python3-pip > /dev/null 2>&1
 
 echo "Installing Pimoroni Inky..."
 curl -sS https://get.pimoroni.com/inky | bash > /dev/null 2>&1
