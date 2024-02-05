@@ -53,7 +53,7 @@ def update_display(image_path):
         im = im.resize((nw, nh))
         im = im.crop((0, dd, w0, dd+h0))
     
-    display.set_image(im, saturation=1.0)
+    display.set_image(im, saturation=.76)
     try:
         display.show()
     except RuntimeError:
