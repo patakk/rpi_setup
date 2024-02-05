@@ -60,12 +60,14 @@ def update_display(image_path):
 
 
 def initialize():
-    for filename in os.listdir(app.config['UPLOAD_FOLDER']):
-        file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-        if allowed_file(filename) and not filename.endswith('_thumbnail.jpg'):
-            thumbnail_path = f"{os.path.splitext(file_path)[0]}_thumbnail{os.path.splitext(file_path)[1]}"
-            if not os.path.exists(thumbnail_path):
-                create_thumbnail(file_path)
+    for filename in os.listdir(UPLOAD_FOLDER):
+        file_path = os.path.join(UPLOAD_FOLDER, filename)
+        if not allowed_file(filename):
+            continue
+        thumbnail_path = os.path.join(THUMBNAILS_FOLDER, filename)
+        if not os.path.exists(thumbnail_path):
+            create_thumbnail(file_path)
+
 
 
 @app.route('/gallery')
@@ -95,4 +97,4 @@ def upload_file():
 
 if __name__ == '__main__':
     initialize()
-    app.run(host='0.0.0.0', port=5000)
+    app.run(host='0.0.0.0', port=5000, debug=True)
