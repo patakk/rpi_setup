@@ -2,6 +2,7 @@ from flask import Flask, request, render_template, redirect, jsonify, url_for
 from werkzeug.utils import secure_filename
 from inky import Inky_Impressions_7 as Inky
 from PIL import Image
+import uuid
 import os
 
 app = Flask('Inky Impression 7.3" App')
@@ -105,8 +106,8 @@ def upload_file():
         filename = secure_filename(str(uuid.uuid4()) + os.path.splitext(file.filename)[-1])
         file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
         file.save(file_path)
-        update_display(file_path)
         create_thumbnail(file_path)  # Create thumbnail for the uploaded image
+        update_display(file_path)
         return redirect('/')
 
 if __name__ == '__main__':

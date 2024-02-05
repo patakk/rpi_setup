@@ -17,7 +17,7 @@ function handlePaste(e) {
                 console.log('Image uploaded successfully.');
             })
             .catch(error => {
-                console.error('Error uploading image:', error);
+                //console.error('Error uploading image:', error);
             });
 
             e.preventDefault();
