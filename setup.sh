@@ -19,7 +19,7 @@ pip install inky > /dev/null 2>&1
 pip install Flask > /dev/null 2>&1
 
 echo "Setting fish as the default shell..."
-chsh -s /usr/bin/fish
+sudo chsh -s /usr/bin/fish
 fish
 
 echo "Installation completed!"
