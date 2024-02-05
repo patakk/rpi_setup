@@ -29,9 +29,7 @@
     <div class="container">
         {% for image in images %}
             <div class="image">
-                {% for image in images %}
-    			<img src="{{ url_for('static', filename='thumbnails/' ~ image) }}" alt="Thumbnail">
-		{% endfor %}
+    		<img src="{{ url_for('static', filename='thumbnails/' ~ image) }}" alt="Thumbnail">
 	   </div>
         {% endfor %}
     </div>
