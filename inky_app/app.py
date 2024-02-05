@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template, jsonify
+from flask import Flask, request, render_template, redirect, jsonify, url_for
 from werkzeug.utils import secure_filename
 from inky import Inky_Impressions_7 as Inky
 from PIL import Image
@@ -69,16 +69,30 @@ def initialize():
             create_thumbnail(file_path)
 
 
-
 @app.route('/gallery')
 def gallery():
     thumbnails = [f for f in os.listdir(THUMBNAILS_FOLDER) if allowed_file(f)]
     return render_template('gallery.html', images=thumbnails)
 
 
+@app.route('/display_image/<filename>')
+def display_image(filename):
+    if not allowed_file(filename) or '..' in filename or filename.startswith('/'):
+        return jsonify({'error': 'Invalid filename'}), 400
+
+    image_path = os.path.join(UPLOAD_FOLDER, secure_filename(filename))
+
+    if os.path.exists(image_path):
+        update_display(image_path)
+        return redirect('/gallery')
+    else:
+        return jsonify({'error': 'File does not exist'}), 404
+
+
 @app.route('/', methods=['GET'])
 def upload_form():
     return render_template('index.html')
+
 
 @app.route('/upload', methods=['POST'])
 def upload_file():
@@ -88,12 +102,12 @@ def upload_file():
     if file.filename == '':
         return jsonify({'error': 'No selected file'}), 400
     if file and allowed_file(file.filename):
-        filename = secure_filename(file.filename)
+        filename = secure_filename(str(uuid.uuid4()) + os.path.splitext(file.filename)[-1])
         file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
         file.save(file_path)
         update_display(file_path)
         create_thumbnail(file_path)  # Create thumbnail for the uploaded image
-        return jsonify({'message': 'File uploaded and display updated successfully'}), 200
+        return redirect('/')
 
 if __name__ == '__main__':
     initialize()

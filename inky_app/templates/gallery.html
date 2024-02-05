@@ -9,6 +9,7 @@
             color: white;
             text-align: center;
             font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	    font-weight: bold;
         }
         img {
             max-width: 100%;
@@ -23,16 +24,46 @@
         .image {
             margin: 10px;
         }
+	.top-right-link {
+   	     position: absolute;
+        	right: 10px;
+        	top: 10px;
+        	font-size: 2em; /* Adjust the size as needed */
+    	}
+        a, a:visited {
+            color: white;
+            text-decoration: none;
+   	}
+    	a:hover {
+            text-decoration: underline;
+    	}
     </style>
 </head>
 <body>
+  <a href="/" class="top-right-link">Home</a>
     <div class="container">
         {% for image in images %}
-            <div class="image">
-    		<img src="{{ url_for('static', filename='thumbnails/' ~ image) }}" alt="Thumbnail">
-	   </div>
+            <div class="image" onclick="updateDisplay('{{ image }}')" style="cursor: pointer;">
+                <a href="javascript:void(0);">
+                    <img src="{{ url_for('static', filename='thumbnails/' ~ image) }}" alt="Thumbnail">
+                </a>
+            </div>
         {% endfor %}
-    </div>
+    </div> 
+    
+    <script>
+	function updateDisplay(filename){
+	    console.log('using ', filename)
+            fetch(`/display_image/${filename}`)
+                .then(response => {
+                    if (response.ok) {
+                        console.log('Display updated successfully');
+                    } else {
+                        console.error('Failed to update display');
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+        }
+    </script>
 </body>
 </html>
-

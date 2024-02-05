@@ -1,6 +1,5 @@
 
 function handlePaste(e) {
-    
     var items = (e.clipboardData || window.clipboardData).items;
     for (var i = 0; i < items.length; i++) {
         if (items[i].type.indexOf('image') !== -1) {
@@ -8,7 +7,7 @@ function handlePaste(e) {
 
             var formData = new FormData();
             formData.append('file', blob, 'clipboard-image.png');
-            console.log('uploading')
+            console.log('uploading from clipboard')
             fetch('/upload', {
                 method: 'POST',
                 body: formData,
