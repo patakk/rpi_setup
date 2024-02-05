@@ -8,7 +8,8 @@ function handlePaste(e) {
             var formData = new FormData();
             formData.append('file', blob, 'clipboard-image.png');
             console.log('uploading from clipboard')
-            fetch('/upload', {
+            doLabel();
+	    fetch('/upload', {
                 method: 'POST',
                 body: formData,
             })
@@ -23,7 +24,32 @@ function handlePaste(e) {
             e.preventDefault();
         }
     }
+}
 
+
+ function updateDisplayFromGallery(filename){
+    console.log('using ', filename)
+    doLabel();
+    fetch(`/display_image/${filename}`)
+        .then(response => {
+            if (response.ok) {
+                console.log('Display updated successfully');
+            } else {
+                console.error('Failed to update display');
+            }
+        })
+        .catch(error => console.error('Error:', error));
+ }
+
+function doLabel(){
+    document.getElementById("synclabel").style.opacity = 1.;
+    setTimeout(()=>{document.getElementById("synclabel").style.opacity = 0.}, 15000);
+}
+
+function handleButton(e){
+	doLabel();
+	console.log('uploading');
+	document.getElementById('uploadForm').submit();
 }
 
 window.onload = function() {
@@ -31,8 +57,4 @@ window.onload = function() {
 	handlePaste(event);
     });
 }
-
-document.addEventListener('touchmove', function(event) {
-    event.preventDefault();
-}, { passive: false });
 

@@ -20,15 +20,16 @@
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
+	    margin-top: 80px;
         }
         .image {
             margin: 10px;
         }
-	.top-right-link {
+	.top-right {
    	     position: absolute;
         	right: 20px;
         	top: 20px;
-        	font-size: 2em; /* Adjust the size as needed */
+        	font-size: 3em; /* Adjust the size as needed */
     	}
         a, a:visited {
             color: white;
@@ -37,33 +38,29 @@
     	a:hover {
             text-decoration: underline;
     	}
+        h2 {
+            font-size: 1.8em;
+            margin-top: 2em;
+            color: #ff4400;
+        }
     </style>
 </head>
 <body>
-  <a href="/" class="top-right-link">Home</a>
+  <a href="/" class="top-right">Home</a>
+    <h2 id="synclabel" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); opacity: 0.0; pointer-events: none;">updating screen...</h2>
+
+    <script src="static/script.js"></script>
+    
     <div class="container">
         {% for image in images %}
-            <div class="image" onclick="updateDisplay('{{ image }}')" style="cursor: pointer;">
+            <div class="image" onclick="updateDisplayFromGallery('{{ image }}')" style="cursor: pointer;">
                 <a href="javascript:void(0);">
                     <img src="{{ url_for('static', filename='thumbnails/' ~ image) }}" alt="Thumbnail">
                 </a>
             </div>
         {% endfor %}
     </div> 
-    
-    <script>
-	function updateDisplay(filename){
-	    console.log('using ', filename)
-            fetch(`/display_image/${filename}`)
-                .then(response => {
-                    if (response.ok) {
-                        console.log('Display updated successfully');
-                    } else {
-                        console.error('Failed to update display');
-                    }
-                })
-                .catch(error => console.error('Error:', error));
-        }
-    </script>
+   
+
 </body>
 </html>

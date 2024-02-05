@@ -25,6 +25,11 @@
             font-size: 4em;
             margin-bottom: 2em;
         }
+	h2 {
+	    font-size: 1.8em;
+	    margin-top: 2em;
+	    color: #ff4400;
+	}
         .upload-btn {
             background-color: transparent;
             color: white;
@@ -49,7 +54,7 @@
             position: absolute;
             right: 20px;
             top: 20px;
-            font-size: 2em;
+            font-size: 3em;
         }
         a, a:visited {
             color: white;
@@ -64,10 +69,16 @@
     <a href="/gallery" class="top-right">Gallery</a>
     <form id="uploadForm" action="/upload" method="post" enctype="multipart/form-data">
         <h1>Press the button to upload an image, or paste from clipboard</h1>
-        <input type="file" name="file" id="file" style="display: none;" onchange="document.getElementById('uploadForm').submit(); console.log('uploading');">
+        <input type="file" name="file" id="file" style="display: none;" onchange="handleButton()">
         <label for="file" class="upload-btn">Upload</label>
+	<h2 id="synclabel" style="opacity:0.0">updating screen...</h2>
     </form>
-    <script src="static/script.js"></script>
+    <script src="static/script.js"></script> 
+    <script>
+       document.addEventListener('touchmove', function(event) {
+ 	   event.preventDefault();
+       }, { passive: false });
+    </script> 
 </body>
 
 </html>
