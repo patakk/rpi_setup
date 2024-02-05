@@ -16,8 +16,10 @@ os.makedirs(THUMBNAILS_FOLDER, exist_ok=True)
 
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
+
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
 
 def create_thumbnail(image_path):
     img = Image.open(image_path)
@@ -56,6 +58,7 @@ def update_display(image_path):
     except RuntimeError:
         pass
 
+
 def initialize():
     for filename in os.listdir(app.config['UPLOAD_FOLDER']):
         file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
@@ -65,11 +68,10 @@ def initialize():
                 create_thumbnail(file_path)
 
 
-
 @app.route('/gallery')
 def gallery():
-    image_files = [f for f in os.listdir(app.config['UPLOAD_FOLDER']) if allowed_file(f)]
-    return render_template('gallery.html', images=image_files)
+    thumbnails = [f for f in os.listdir(THUMBNAILS_FOLDER) if allowed_file(f)]
+    return render_template('gallery.html', images=thumbnails)
 
 
 @app.route('/', methods=['GET'])
