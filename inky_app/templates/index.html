@@ -47,9 +47,23 @@
             outline: 5px dotted #fff;
             outline-offset: 4px;
         }
+	 .top-right {
+            position: absolute;
+            right: 10px;
+            top: 10px;
+            font-size: 2em;
+        }
+        a {
+            color: white;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
+    <a href="/gallery" class="top-right">Gallery</a>
     <form id="uploadForm" action="/upload" method="post" enctype="multipart/form-data">
         <h1>Press the button to upload image, or paste from clipboard</h1>
         <input type="file" name="file" id="file" style="display: none;" onchange="document.getElementById('uploadForm').submit();">

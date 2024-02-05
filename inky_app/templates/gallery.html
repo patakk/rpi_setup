@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Gallery</title>
+    <style>
+        body {
+            background-color: #000;
+            color: white;
+            text-align: center;
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            margin: 20px;
+        }
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .image {
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        {% for image in images %}
+            <div class="image">
+                {% for image in images %}
+    			<img src="{{ url_for('static', filename='thumbnails/' ~ image) }}" alt="Thumbnail">
+		{% endfor %}
+	   </div>
+        {% endfor %}
+    </div>
+</body>
+</html>
+

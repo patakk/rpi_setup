@@ -1,31 +1,76 @@
-from flask import Flask, request, render_template, redirect, url_for, jsonify
+from flask import Flask, request, render_template, jsonify
 from werkzeug.utils import secure_filename
 from inky import Inky_Impressions_7 as Inky
 from PIL import Image
 import os
 
-app = Flask(__name__)
-UPLOAD_FOLDER = '/home/paolo/inky_images'
+app = Flask('Inky Impression 7.3" App')
+UPLOAD_FOLDER = os.path.join(app.static_folder, 'images')
+THUMBNAILS_FOLDER = os.path.join(app.static_folder, 'thumbnails')
+
+THUMBNAIL_SIZE = (256, 256)
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
 
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+os.makedirs(THUMBNAILS_FOLDER, exist_ok=True)
+
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 def allowed_file(filename):
-    return '.' in filename and \
-           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+def create_thumbnail(image_path):
+    img = Image.open(image_path)
+    img.thumbnail(THUMBNAIL_SIZE)
+    basename = os.path.basename(image_path)
+    thumbnail_path = os.path.join(THUMBNAILS_FOLDER, basename)
+    img.save(thumbnail_path)
+
 
 def update_display(image_path):
     display = Inky()
     im = Image.open(image_path)
     if im.size[0] < im.size[1]:
         im = im.rotate(90, expand=True)
-    im = im.resize((800, 480))
+    
+    w0 = 800
+    h0 = 480
+    om0 = w0/h0
+    om = im.size[0]/im.size[1]
+    if om > om0:
+        nh = h0
+        nw = int(nh*om)
+        dd = (nw - w0)//2
+        im = im.resize((nw, nh))
+        im = im.crop((dd, 0, dd+w0, h0))
+    elif om < om0:
+        nw = w0
+        nh = int(nw/om)
+        dd = (nh - h0)//2
+        im = im.resize((nw, nh))
+        im = im.crop((0, dd, w0, dd+h0))
+    
     display.set_image(im)
     try:
         display.show()
     except RuntimeError:
         pass
+
+def initialize():
+    for filename in os.listdir(app.config['UPLOAD_FOLDER']):
+        file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+        if allowed_file(filename) and not filename.endswith('_thumbnail.jpg'):
+            thumbnail_path = f"{os.path.splitext(file_path)[0]}_thumbnail{os.path.splitext(file_path)[1]}"
+            if not os.path.exists(thumbnail_path):
+                create_thumbnail(file_path)
+
+
+
+@app.route('/gallery')
+def gallery():
+    image_files = [f for f in os.listdir(app.config['UPLOAD_FOLDER']) if allowed_file(f)]
+    return render_template('gallery.html', images=image_files)
+
 
 @app.route('/', methods=['GET'])
 def upload_form():
@@ -43,8 +88,9 @@ def upload_file():
         file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
         file.save(file_path)
         update_display(file_path)
+        create_thumbnail(file_path)  # Create thumbnail for the uploaded image
         return jsonify({'message': 'File uploaded and display updated successfully'}), 200
 
 if __name__ == '__main__':
+    initialize()
     app.run(host='0.0.0.0', port=5000)
-
