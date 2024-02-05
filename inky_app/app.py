@@ -76,6 +76,13 @@ def gallery():
     return render_template('gallery.html', images=thumbnails)
 
 
+import glob
+def get_image_folder_state():
+    paths = glob.glob(os.path.join(UPLOAD_FOLDER, '*'))
+    paths = [p for p in paths if allowed_file(os.path.basename(p))]
+    paths.sort(key=os.path.getctime)
+    return paths
+
 @app.route('/display_image/<filename>')
 def display_image(filename):
     if not allowed_file(filename) or '..' in filename or filename.startswith('/'):
@@ -84,6 +91,13 @@ def display_image(filename):
     image_path = os.path.join(UPLOAD_FOLDER, secure_filename(filename))
 
     if os.path.exists(image_path):
+        print('image from gallery')
+        images = get_image_folder_state()
+        current_idx = images.index(image_path)
+        print(f'{current_idx+1} / {len(images)}')
+        with open('../current_img_idx', 'w') as f:
+            f.write(str(current_idx))
+
         update_display(image_path)
         return redirect('/gallery')
     else:
@@ -93,7 +107,6 @@ def display_image(filename):
 @app.route('/', methods=['GET'])
 def upload_form():
     return render_template('index.html')
-
 
 @app.route('/upload', methods=['POST'])
 def upload_file():
@@ -106,7 +119,12 @@ def upload_file():
         filename = secure_filename(str(uuid.uuid4()) + os.path.splitext(file.filename)[-1])
         file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
         file.save(file_path)
-        create_thumbnail(file_path)  # Create thumbnail for the uploaded image
+        print('new file saved', len(os.listdir(UPLOAD_FOLDER)) - 1)
+        create_thumbnail(file_path)
+
+        with open('../current_img_idx', 'w') as f:
+            f.write(str(len(os.listdir(UPLOAD_FOLDER)) - 1))
+
         update_display(file_path)
         return redirect('/')
 
