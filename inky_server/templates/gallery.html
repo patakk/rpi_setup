@@ -23,7 +23,7 @@
     </style>
 </head>
 <body>
-  <a href="/" class="top-right">Home</a>
+  <a href="/" class="top-middle">Home</a>
     <h2 id="synclabel" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); opacity: 0.0; pointer-events: none;">updating screen...</h2>
 
     <script src="static/script.js"></script>
@@ -37,5 +37,20 @@
             </div>
         {% endfor %}
     </div> 
+    <script>
+        function updateDisplayFromGallery(filename){
+            console.log('using ', filename)
+            doLabel();
+            fetch(`/display_image/${filename}`)
+                .then(response => {
+                    if (response.ok) {
+                        console.log('Display updated successfully');
+                    } else {
+                        console.error('Failed to update display');
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+        }
+    </script> 
 </body>
 </html>

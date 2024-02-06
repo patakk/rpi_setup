@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Canvas Drawing</title>
+    <link rel="stylesheet" href="static/styles.css">
+    <style>
+        #canvas {
+            width: 1600px;
+            height: 960px;
+            background-color: white; /* Assuming you want a white canvas */
+            border: 5px solid darkgrey; /* Dark grey thick border */
+            display: block;
+            margin: 20px auto; /* Centers the canvas horizontally */
+        }
+        .action-btn {
+            background-color: transparent;
+            color: white;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 3.5em;
+            text-transform: uppercase;
+            display: inline-block; /* To ensure it behaves like the upload button */
+            margin-top: 20px; /* Space between canvas and button */
+        }
+    </style>
+</head>
+<body>
+    <a href="/" class="top-middle">Home</a>
+    <canvas id="canvas"></canvas>
+    <button class="action-btn" onclick="someFunction()">Action</button>
+    <script src="static/script.js"></script>
+    <script>
+        function someFunction() {
+        }
+    </script>
+</body>
+</html>

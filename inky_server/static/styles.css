@@ -30,5 +30,20 @@ a:hover {
     position: absolute;
     right: 20px;
     top: 20px;
+    font-size: 3em;
+}
+
+.top-left {
+    position: absolute;
+    left: 20px;
+    top: 20px;
+    font-size: 3em;
+}
+
+.top-middle {
+    position: absolute;
+    left: 50%;
+    top: 20px;
     font-size: 3em; /* Adjust the size as needed */
+    transform: translateX(-50%); /* Centers the element horizontally */
 }

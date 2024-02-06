@@ -31,6 +31,10 @@ def gallery():
     thumbnails = [f for f in os.listdir(THUMBNAILS_FOLDER) if allowed_file(f)]
     return render_template('gallery.html', images=thumbnails)
 
+@app.route('/canvas')
+def gallery():
+    return render_template('canvas.html')
+
 
 import glob
 def get_image_folder_state():

@@ -38,6 +38,7 @@
 </head>
 <body>
     <a href="/gallery" class="top-right">Gallery</a>
+    <a href="/canvas" class="top-left">Canvas</a>
     <form id="uploadForm" action="/upload" method="post" enctype="multipart/form-data">
         <h1>Press the button to upload an image, or paste from clipboard</h1>
         <input type="file" name="file" id="file" style="display: none;" onchange="handleButton()">
@@ -46,9 +47,52 @@
     </form>
     <script src="static/script.js"></script> 
     <script>
-       document.addEventListener('touchmove', function(event) {
- 	   event.preventDefault();
-       }, { passive: false });
+        
+        function handlePaste(e) {
+            var items = (e.clipboardData || window.clipboardData).items;
+            for (var i = 0; i < items.length; i++) {
+                if (items[i].type.indexOf('image') !== -1) {
+                    var blob = items[i].getAsFile();
+
+                    var formData = new FormData();
+                    formData.append('file', blob, 'clipboard-image.png');
+                    console.log('uploading from clipboard')
+                    doLabel();
+                    fetch('/upload', {
+                        method: 'POST',
+                        body: formData,
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log('Image uploaded successfully.');
+                    })
+                    .catch(error => {
+                        //console.error('Error uploading image:', error);
+                    });
+
+                    e.preventDefault();
+                }
+            }
+        }
+
+        function handleButton(e){
+            doLabel();
+            console.log('uploading');
+            document.getElementById('uploadForm').submit();
+        }
+
+        document.addEventListener('touchmove',
+            function(event) {
+                event.preventDefault();
+            },
+            { passive: false }
+        );
+
+        window.onload = function() {
+            document.body.addEventListener('paste', (event) => {
+                handlePaste(event);
+            });
+        }
     </script> 
 </body>
 
