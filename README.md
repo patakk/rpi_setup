@@ -1,4 +1,4 @@
-# Raspberry Pi Inky impression setup
+# Raspberry Pi Inky Impression 7.3" setup
 
 A collection of scripts and apps to use with Inky Impression 7.3" e-ink display on a Raspberry Pi.
 
