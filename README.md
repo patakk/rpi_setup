@@ -5,12 +5,14 @@ A collection of scripts and apps to use with Inky Impression 7.3" e-ink display 
 
 ## Setup
 ### Prerequisites
-**Install Git**: To clone this repository, you'll first need to have Git installed on your Raspberry Pi. If Git is not already installed, you can install it by running:
+If git is missing, run the following:
 ```bash
 sudo apt update
 sudo apt install git -y
 ```
+
 ### Install
+Clone this repo and run setup.s
 ```bash
 git clone https://github.com/patakk/rpi_stuff.git
 cd rpi_stuff
@@ -20,7 +22,7 @@ cd rpi_stuff
 ## Using the Image Server
 ```bash
 cd inky_app
-python3 app.py &
+python app.py &
 ```
 
 ## Enabling Button Functionality
