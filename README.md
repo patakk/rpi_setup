@@ -19,8 +19,6 @@ cd rpi_stuff
 ./setup.sh
 ```
 
----
-
 ## Using the Image Server
 ```bash
 cd inky_server
