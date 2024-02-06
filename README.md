@@ -1,10 +1,10 @@
-# Raspberry Pi Utilities Repository
+# Raspberry Pi Inky impression setup
 
-Welcome to the Raspberry Pi Utilities repository! This collection of scripts and applications is designed to enhance your Raspberry Pi experience. Whether you're setting up a new device or adding functionality to an existing setup, you've come to the right place.
+A collection of scripts and apps to use with Inky Impression 7.3" e-ink display on a Raspberry Pi.
 
 ## Getting Started
 
-Before you can use these utilities, there are a few steps you'll need to follow to get everything set up on your Raspberry Pi. This guide assumes you're starting with a fresh install of Raspberry OS.
+Before using these, there are a few steps one needs to follow to get everything set up. The initial steps assume a fresh installation of Raspberry Pi OS, but you can skip them if you already have a working system.
 
 ### Prerequisites
 
@@ -52,21 +52,19 @@ To run the image server application, follow these steps:
 2. Run the `app.py` script:
 
     ```bash
-    python3 app.py
+    python3 app.py &
     ```
 
 This will start the image server, which you can then access according to the application's documentation.
+The `&` at the end of the command runs the script in the background, allowing you to continue using the terminal for other tasks.
 
 ## Enabling Button Functionality
 
-If your project includes buttons and you'd like to enable their functionality, you'll need to run the `buttons.py` script in the background:
+To enable functionality for the buttons, you'll need to run the `buttons.py` script in the background:
 
 ```bash
-python3 buttons.py &
+python buttons.py &
 ```
-
-The `&` at the end of the command runs the script in the background, allowing you to continue using the terminal for other tasks.
-
 ---
 
 For more information on how to use these utilities or if you encounter any issues, please refer to the documentation or open an issue in this repository.
