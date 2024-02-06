@@ -21,7 +21,7 @@ cd rpi_stuff
 
 ## Using the Image Server
 ```bash
-cd inky_app
+cd inky_server
 python app.py &
 ```
 
