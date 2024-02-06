@@ -18,6 +18,9 @@ echo "Installing Inky library..."
 pip install inky > /dev/null 2>&1
 pip install Flask > /dev/null 2>&1
 
+echo "Installing AxiDraw CLI and Python API"
+pip install https://cdn.evilmadscientist.com/dl/ad/public/AxiDraw_API.zip
+
 echo "Setting fish as the default shell..."
 sudo chsh -s /usr/bin/fish
 fish

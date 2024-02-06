@@ -5,8 +5,8 @@ import random
 import glob
 import os
 
-from inky_app.app import allowed_file
-from inky_app.app import update_display
+from inky_server.shared import allowed_file
+from inky_server.shared import update_display
 
 
 UPLOAD_FOLDER = 'inky_app/static/images'

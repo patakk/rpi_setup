@@ -3,14 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Gallery</title>
+    <link rel="stylesheet" href="styles.css">
     <style>
-        body {
-            background-color: #000;
-            color: white;
-            text-align: center;
-            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-	    font-weight: bold;
-        }
+        
         img {
             max-width: 100%;
             height: auto;
@@ -20,28 +15,10 @@
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-	    margin-top: 80px;
+	        margin-top: 80px;
         }
         .image {
             margin: 10px;
-        }
-	.top-right {
-   	     position: absolute;
-        	right: 20px;
-        	top: 20px;
-        	font-size: 3em; /* Adjust the size as needed */
-    	}
-        a, a:visited {
-            color: white;
-            text-decoration: none;
-   	}
-    	a:hover {
-            text-decoration: underline;
-    	}
-        h2 {
-            font-size: 1.8em;
-            margin-top: 2em;
-            color: #ff4400;
         }
     </style>
 </head>
@@ -60,7 +37,5 @@
             </div>
         {% endfor %}
     </div> 
-   
-
 </body>
 </html>

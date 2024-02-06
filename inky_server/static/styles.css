@@ -1,0 +1,34 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #000;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: bold;
+    color: white;
+}
+
+.synclabel {
+    font-size: 1.8em;
+    margin-top: 2em;
+    color: #ff4400;
+}
+
+a, a:visited {
+    color: white;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.top-right {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    font-size: 3em; /* Adjust the size as needed */
+}
