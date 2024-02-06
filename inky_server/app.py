@@ -75,7 +75,7 @@ def upload_file():
         filename = secure_filename(str(uuid.uuid4()) + os.path.splitext(file.filename)[-1])
         file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
         file.save(file_path)
-        print('new file saved', len(os.listdir(UPLOAD_FOLDER)) - 1)
+        print('new file saved')
         create_thumbnail(file_path)
 
         with open('../current_img_idx', 'w') as f:

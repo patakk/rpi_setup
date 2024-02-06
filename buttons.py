@@ -9,7 +9,7 @@ from inky_server.shared import allowed_file
 from inky_server.shared import update_display
 
 
-UPLOAD_FOLDER = 'inky_app/static/images'
+UPLOAD_FOLDER = 'inky_server/static/images'
 
 BUTTON_LABEL_DICT = {
     5: 'A',
