@@ -5,14 +5,14 @@ A collection of scripts and apps to use with Inky Impression 7.3" e-ink display 
 
 ## Setup
 ### Prerequisites
-If git is missing, run the following:
+If **git** is missing, run the following:
 ```bash
 sudo apt update
 sudo apt install git -y
 ```
 
 ### Install
-Clone this repo and run setup.s
+Clone this repo and run setup.sh
 ```bash
 git clone https://github.com/patakk/rpi_stuff.git
 cd rpi_stuff
