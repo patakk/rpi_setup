@@ -24,7 +24,7 @@
 </head>
 <body>
   <a href="/" class="top-middle">Home</a>
-    <h2 id="synclabel" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); opacity: 0.0; pointer-events: none;">updating screen...</h2>
+  <h2 id="synclabel">updating screen...</h2>
 
     <script src="static/script.js"></script>
     
@@ -43,11 +43,8 @@
             doLabel();
             fetch(`/display_image/${filename}`)
                 .then(response => {
-                    if (response.ok) {
-                        console.log('Display updated successfully');
-                    } else {
-                        console.error('Failed to update display');
-                    }
+                    var response = JSON.parse(this.responseText);
+                    console.log('Server responded with:', response);
                 })
                 .catch(error => console.error('Error:', error));
         }

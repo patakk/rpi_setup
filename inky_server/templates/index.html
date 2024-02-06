@@ -43,7 +43,7 @@
         <h1>Press the button to upload an image, or paste from clipboard</h1>
         <input type="file" name="file" id="file" style="display: none;" onchange="handleButton()">
         <label for="file" class="upload-btn">Upload</label>
-	<h2 id="synclabel" style="opacity:0.0">updating screen...</h2>
+        <h2 id="synclabel">updating screen...</h2>
     </form>
     <script src="static/script.js"></script> 
     <script>
@@ -62,7 +62,10 @@
                         method: 'POST',
                         body: formData,
                     })
-                    .then(response => response.json())
+                    .then(response => {
+                        var response = JSON.parse(this.responseText);
+                        console.log('Server responded with:', response);
+                    })
                     .then(data => {
                         console.log('Image uploaded successfully.');
                     })
