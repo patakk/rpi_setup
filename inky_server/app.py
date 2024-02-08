@@ -31,17 +31,21 @@ def gallery():
     thumbnails = [f for f in os.listdir(THUMBNAILS_FOLDER) if allowed_file(f)]
     return render_template('gallery.html', images=thumbnails)
 
+
 @app.route('/canvas')
 def canvas():
     return render_template('canvas.html')
 
 
 import glob
+
+
 def get_image_folder_state():
     paths = glob.glob(os.path.join(UPLOAD_FOLDER, '*'))
     paths = [p for p in paths if allowed_file(os.path.basename(p))]
     paths.sort(key=os.path.getctime)
     return paths
+
 
 @app.route('/display_image/<filename>')
 def display_image(filename):
@@ -68,6 +72,7 @@ def display_image(filename):
 def mainpage():
     return render_template('index.html')
 
+
 @app.route('/upload_canvas', methods=['POST'])
 def upload_canvas_image():
     data = request.json
@@ -83,12 +88,12 @@ def upload_canvas_image():
         file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
         with open(file_path, 'wb') as f:
             f.write(image_bytes)
-        
+
         create_thumbnail(file_path)
-        
+
         with open('../current_img_idx', 'w') as f:
             f.write(str(len(os.listdir(UPLOAD_FOLDER)) - 1))
-        
+
         update_display(file_path)
         print('canvas image saved')
         return jsonify({'success': 'Image saved', 'filename': filename}), 200
@@ -117,6 +122,7 @@ def upload_file():
         update_display(file_path)
         return redirect('/')
         # return jsonify({'success': 'Image uploaded'}), 200
+
 
 if __name__ == '__main__':
     initialize()

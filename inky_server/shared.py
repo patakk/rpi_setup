@@ -28,25 +28,25 @@ def update_display(image_path):
     im = Image.open(image_path)
     if im.size[0] < im.size[1]:
         im = im.rotate(90, expand=True)
-    
+
     w0 = 800
     h0 = 480
-    om0 = w0/h0
-    om = im.size[0]/im.size[1]
+    om0 = w0 / h0
+    om = im.size[0] / im.size[1]
     if om > om0:
         nh = h0
-        nw = int(nh*om)
-        dd = (nw - w0)//2
+        nw = int(nh * om)
+        dd = (nw - w0) // 2
         im = im.resize((nw, nh))
-        im = im.crop((dd, 0, dd+w0, h0))
+        im = im.crop((dd, 0, dd + w0, h0))
     elif om < om0:
         nw = w0
-        nh = int(nw/om)
-        dd = (nh - h0)//2
+        nh = int(nw / om)
+        dd = (nh - h0) // 2
         im = im.resize((nw, nh))
-        im = im.crop((0, dd, w0, dd+h0))
-    
-    display.set_image(im, saturation=.76)
+        im = im.crop((0, dd, w0, dd + h0))
+
+    display.set_image(im, saturation=0.76)
     try:
         display.show()
     except RuntimeError:
