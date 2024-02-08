@@ -35,8 +35,11 @@ def random_image():
 def next_image():
     print('Next Image')
     images = get_image_folder_state()
-    current_idx = int(open('current_img_idx', 'r').read())
-    current_idx = (current_idx + 1 + len(images)) % len(images)
+    if os.path.exists('current_img_idx'):
+        current_idx = int(open('current_img_idx', 'r').read())
+        current_idx = (current_idx + 1 + len(images)) % len(images)
+    else:
+        current_idx = 0
     print(f'{current_idx+1} / {len(images)}')
     image = images[current_idx]
     with open('current_img_idx', 'w') as f:
@@ -48,8 +51,11 @@ def next_image():
 def prev_image():
     print('Previous Image')
     images = get_image_folder_state()
-    current_idx = int(open('current_img_idx', 'r').read())
-    current_idx = (current_idx - 1 + len(images)) % len(images)
+    if os.path.exists('current_img_idx'):
+        current_idx = int(open('current_img_idx', 'r').read())
+        current_idx = (current_idx - 1 + len(images)) % len(images)
+    else:
+        current_idx = 0
     print(f'{current_idx+1} / {len(images)}')
     image = images[current_idx]
     with open('current_img_idx', 'w') as f:
