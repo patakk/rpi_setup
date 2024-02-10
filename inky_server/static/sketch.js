@@ -37,7 +37,6 @@ document.addEventListener('keydown', function (event) {
 
 function sendCanvasToServer() {
     doLabel();
-    var canvas = document.getElementById('canvas');
     var dataURL = canvas.toDataURL('image/png');
     var xhr = new XMLHttpRequest();
     xhr.open('POST', '/upload_canvas', true);
@@ -86,8 +85,19 @@ function stopDrawing() {
 
 
 document.addEventListener('DOMContentLoaded', (event) => {
+    let aspect = 800 / 480;
     canvas = document.getElementById('canvas');
     ctx = canvas.getContext('2d');
+
+    if(window.innerWidth < window.innerHeight){
+        canvas.style.width = window.innerWidth-5*2 + "px";
+        canvas.style.height = (window.innerWidth-5*2) / aspect + "px";
+    }
+    else{
+        canvas.style.width = window.innerWidth * .6 + "px";
+        canvas.style.height = window.innerWidth * .6 / aspect + "px";
+    }
+
     canvas.width = canvas.offsetWidth;
     canvas.height = canvas.offsetHeight;
 

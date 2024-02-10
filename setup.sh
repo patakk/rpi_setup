@@ -17,6 +17,7 @@ cd inky
 echo "Installing Inky library..."
 pip install inky > /dev/null 2>&1
 pip install Flask > /dev/null 2>&1
+pip install gunicorn > /dev/null 2>&1
 
 echo "Installing AxiDraw CLI and Python API"
 pip install https://cdn.evilmadscientist.com/dl/ad/public/AxiDraw_API.zip
@@ -24,6 +25,13 @@ pip install https://cdn.evilmadscientist.com/dl/ad/public/AxiDraw_API.zip
 echo "Setting fish as the default shell..."
 sudo chsh -s /usr/bin/fish
 fish
+
+echo "Setting up crontab..."
+{
+  echo "@reboot cd /home/paolo/rpi_stuff/inky_server && sudo PYTHONPATH=/home/paolo/.local/lib/python3.9/site-packages /home/paolo/.local/bin/gunicorn -w 4 -b 0.0.0.0:80 app:app &"
+  echo "@reboot cd /home/paolo/rpi_stuff && PYTHONPATH=/home/paolo/.local/lib/python3.9/site-packages /usr/bin/python /home/paolo/rpi_stuff/buttons.py &"
+} | crontab -
+
 
 echo "Installation completed!"
 
