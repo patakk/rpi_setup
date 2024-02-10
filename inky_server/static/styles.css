@@ -2,20 +2,12 @@ html, body {
     height: 100%;
     margin: 0;
     padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     background-color: #000;
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-weight: bold;
     color: white;
 }
 
-#synclabel {
-    font-size: 1.8em;
-    margin-top: 2em;
-    color: #ff4400;
-}
 
 a, a:visited {
     color: white;
@@ -49,6 +41,8 @@ a:hover {
 }
 
 #synclabel{
+    margin-top: 2em;
+    color: #ff4400;
     position: fixed;
     top: 50%;
     left: 50%;

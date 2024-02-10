@@ -123,7 +123,7 @@ def upload_file():
         return redirect('/')
         # return jsonify({'success': 'Image uploaded'}), 200
 
-
+import sys
 if __name__ == '__main__':
     initialize()
-    app.run(host='0.0.0.0', port=5000, debug=True)
+    app.run(host='0.0.0.0', port=80, debug=False)

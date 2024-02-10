@@ -1,19 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Upload Image</title>
     <link rel="stylesheet" href="static/styles.css">
     <style>
+        html,
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
         #uploadForm {
             text-align: center;
             width: 100%;
             max-width: 800px;
         }
+
         h1 {
             font-size: 4em;
             margin-bottom: 2em;
         }
+
         .upload-btn {
             background-color: transparent;
             color: white;
@@ -22,6 +32,7 @@
             font-size: 3.5em;
             text-transform: uppercase;
         }
+
         #file {
             width: 0.1px;
             height: 0.1px;
@@ -30,12 +41,14 @@
             position: absolute;
             z-index: -1;
         }
-        #file + .upload-btn {
+
+        #file+.upload-btn {
             outline: 5px dotted #fff;
             outline-offset: 4px;
         }
     </style>
 </head>
+
 <body>
     <a href="/gallery" class="top-right">Gallery</a>
     <a href="/canvas" class="top-left">Canvas</a>
@@ -45,9 +58,8 @@
         <label for="file" class="upload-btn">Upload</label>
         <h2 id="synclabel">updating screen...</h2>
     </form>
-    <script src="static/script.js"></script> 
+    <script src="static/shared.js"></script>
     <script>
-        
         function handlePaste(e) {
             var items = (e.clipboardData || window.clipboardData).items;
             for (var i = 0; i < items.length; i++) {
@@ -62,41 +74,41 @@
                         method: 'POST',
                         body: formData,
                     })
-                    .then(response => {
-                        var response = JSON.parse(this.responseText);
-                        console.log('Server responded with:', response);
-                    })
-                    .then(data => {
-                        console.log('Image uploaded successfully.');
-                    })
-                    .catch(error => {
-                        //console.error('Error uploading image:', error);
-                    });
+                        .then(response => {
+                            var response = JSON.parse(this.responseText);
+                            console.log('Server responded with:', response);
+                        })
+                        .then(data => {
+                            console.log('Image uploaded successfully.');
+                        })
+                        .catch(error => {
+                            //console.error('Error uploading image:', error);
+                        });
 
                     e.preventDefault();
                 }
             }
         }
 
-        function handleButton(e){
+        function handleButton(e) {
             doLabel();
             console.log('uploading');
             document.getElementById('uploadForm').submit();
         }
 
         document.addEventListener('touchmove',
-            function(event) {
+            function (event) {
                 event.preventDefault();
             },
             { passive: false }
         );
 
-        window.onload = function() {
+        window.onload = function () {
             document.body.addEventListener('paste', (event) => {
                 handlePaste(event);
             });
         }
-    </script> 
+    </script>
 </body>
 
 </html>
